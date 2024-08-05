@@ -8145,7 +8145,7 @@ MonoBehaviour:
   currentCity: Lima
   currentLatitude: 
   currentLongitude: 
-  WeatherAPIToken: DUMMY
+  WeatherAPIToken: DU,MMY
   LocationAPIToken: DUMMY
   humidityMeter: {fileID: 354321186}
   precipitationMeter: {fileID: 592784175}

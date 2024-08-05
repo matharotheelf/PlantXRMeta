@@ -115,9 +115,8 @@ public class WeatherAPI : MonoBehaviour {
 					break;
 				case UnityWebRequest.Result.Success:
 					JSONNode locationData = JSON.Parse(locationWebRequest.downloadHandler.text);
-					currentLatitude = locationData["loc"].Value.Split(",")[0];
-					currentLongitude = locationData["loc"].Value.Split(",")[1];
-					locationParam = $"lat={currentLatitude}&lon={currentLongitude}";
+
+					setLocationParamFromIpApiData(locationData);
 					break;
 			}
 		}
@@ -146,16 +145,29 @@ public class WeatherAPI : MonoBehaviour {
 					break;
 				case UnityWebRequest.Result.Success:
 					JSONNode locationData = JSON.Parse(locationWebRequest.downloadHandler.text)[0];
-					currentLatitude = locationData["lat"].Value;
-					currentLongitude = locationData["lon"].Value;
-					locationParam = $"lat={currentLatitude}&lon={currentLongitude}";
+
+					setLocationParamFromCityApiData(locationData);
 					break;
 			}
 		}
 	}
 
-	// set the weather attributes from request data
-	void setWeatherAttributes(JSONNode weatherJson)
+	// set the 
+	void setLocationParamFromCityApiData(JSONNode locationData)
+	{
+		currentLatitude = locationData["lat"].Value;
+		currentLongitude = locationData["lon"].Value;
+		locationParam = $"lat={currentLatitude}&lon={currentLongitude}";
+	}
+
+	void setLocationParamFromIpApiData(JSONNode locationData)
+	{
+		currentLatitude = locationData["loc"].Value.Split(",")[0];
+		currentLongitude = locationData["loc"].Value.Split(",")[1];
+	}
+
+		// set the weather attributes from request data
+		void setWeatherAttributes(JSONNode weatherJson)
 	{
 		precipitation = weatherJson["precipitation"]["total"].AsFloat;
         humidity = weatherJson["humidity"].Children.First().AsFloat;
